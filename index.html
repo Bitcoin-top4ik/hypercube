@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ГиперКуб/4D КУБ</title>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
+</head>
+<body>
+  <section class="container">
+    <div id="cube">
+        <div class="side side1-sd"></div>
+        <div class="side side1-sf"></div>
+        <div class="side side1-sl"></div>
+        <div class="side side1-sb"></div>
+        <div class="side side1-sr"></div>
+        
+
+        <div class="side side2-sd"></div>
+        <div class="side side2-sf"></div>
+        <div class="side side2-sl"></div>
+        <div class="side side2-sb"></div>
+        
+
+        <div class="side side3-sd"></div>
+        <div class="side side3-sf"></div>
+        <div class="side side3-sl"></div>
+        <div class="side side3-sb"></div>
+
+
+        <div class="side side4-sd"></div>
+        <div class="side side4-sf"></div>
+        <div class="side side4-sb"></div>
+        
+
+        <div class="side side5-sd"></div>
+        
+
+        <div class="side side6-sd"></div>
+    </div>
+  </section>
+  <script src="main.js"></script>
+  <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
+</body>
+<script>
+
+  var deltaX = 0;
+  var deltaY = 0;
+  var lastX = 0;
+  var lastY = 0;
+  function rotateCube(distanceY, distanceX) {
+  if (distanceY === void 0) { distanceY = 0; }
+  if (distanceX === void 0) { distanceX = 0; }
+  document.getElementById('cube').style.transform = "rotateY(" + distanceY + "deg) rotateX(" + distanceX + "deg)";
+  lastX = distanceX;
+  lastY = distanceY;
+  }
+  var hammertime = new Hammer(document.querySelector('.container'));
+  hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+  hammertime.on('pan', function (ev) {
+  rotateCube(ev.deltaX / 2 + deltaX, -ev.deltaY / 2 + deltaY);
+  });
+  hammertime.on('panend', function (ev) {
+  deltaX = lastY;
+  deltaY = lastX;
+  });
+</script>
+</html>
